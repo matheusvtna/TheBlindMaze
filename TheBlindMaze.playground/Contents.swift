@@ -7,7 +7,7 @@ import PlaygroundSupport
 
 let frame = CGRect(x:0, y:0, width: 700, height: 700)
 
-var gameScene = MapScene(size: frame.size)
+var gameScene = GameScene(size: frame.size)
 let view = SKView(frame: frame)
 view.presentScene(gameScene)
 
