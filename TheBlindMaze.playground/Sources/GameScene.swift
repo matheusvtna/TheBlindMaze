@@ -5,13 +5,17 @@ import UIKit
 public class GameScene: SKScene{
     
     let map = SKSpriteNode(imageNamed: "Mapa.png")
+    let blackout = SKSpriteNode()
     let inf = SKSpriteNode(imageNamed: "BarraInferior.png")
     let char = SKSpriteNode(imageNamed: "CharDown1.png")
+    
     var nivel = 1
+    
     var charToRight: [SKTexture] = []
     var charToLeft: [SKTexture] = []
     var charToDown: [SKTexture] = []
     var charToUp: [SKTexture] = []
+    
     var matrix:Matrix = Matrix()
     var line = 0
     var column = 0
@@ -33,8 +37,9 @@ public class GameScene: SKScene{
         self.inf.position = CGPoint(x: 0, y: 000)
         self.inf.anchorPoint = CGPoint(x: 0, y:0)
         self.addChild(inf)
-                
+        
         self.createGamepad()
+        //self.configBar()
         
     }
     
@@ -71,6 +76,7 @@ public class GameScene: SKScene{
         self.addChild(upButton)
         
     }
+    
     
     func moveRight(){
         self.column += 1
@@ -184,7 +190,7 @@ public class GameScene: SKScene{
     func moveUp(){
         self.line -= 1
         
-        if(self.column < 0){
+        if(self.line < 0){
             print("Invalid position!")
             self.line += 1
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
