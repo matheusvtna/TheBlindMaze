@@ -13,7 +13,3 @@ view.presentScene(gameScene)
 
 // Present the view controller in the Live View window
 PlaygroundPage.current.liveView = view
-
-
-
-

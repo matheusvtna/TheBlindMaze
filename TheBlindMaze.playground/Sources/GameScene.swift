@@ -7,6 +7,8 @@ public class GameScene: SKScene{
     let map = SKSpriteNode(imageNamed: "MapaCompleto.png")
     let char = SKSpriteNode(imageNamed: "CharDown1.png")
     let end = SKSpriteNode(imageNamed: "Objetivo.png")
+    let gamepad = SKSpriteNode(imageNamed: "BackgroundGamepad.png")
+    
     //let water = SKSpriteNode(imageNamed: "Waterfall1")
         
     var charToRight: [SKTexture] = []
@@ -33,13 +35,17 @@ public class GameScene: SKScene{
         self.end.anchorPoint = CGPoint(x: 0, y:0)
         self.addChild(end)
         
+        self.gamepad.scale(to: CGSize(width: 95, height: 95))
+        self.gamepad.position = CGPoint(x: 130, y: 50)
+        self.addChild(gamepad)
+        
 //        self.water.scale(to: CGSize(width: 700, height: 80))
 //        self.water.position = CGPoint(x:0, y:0)
 //        self.anchorPoint = CGPoint(x:0, y:0)
 //        self.addChild(water)
 //
         self.char.scale(to: CGSize(width: 90, height: 90))
-        self.char.position = CGPoint(x: 5, y: 530)
+        self.char.position = CGPoint(x: 5, y: 540)
         self.char.anchorPoint = CGPoint(x: 0, y:0)
         self.addChild(char)
         
@@ -90,10 +96,10 @@ public class GameScene: SKScene{
             self.moveUp()
         }
         
-        rightButton.position = CGPoint(x: 252, y:80)
-        leftButton.position = CGPoint(x: 120, y:80)
-        downButton.position = CGPoint(x: 220, y:10)
-        upButton.position = CGPoint(x:220, y: 110)
+        rightButton.position = CGPoint(x: 156, y:53)
+        leftButton.position = CGPoint(x: 105, y:53)
+        downButton.position = CGPoint(x: 131, y:27)
+        upButton.position = CGPoint(x:131, y: 80)
                 
         rightButton.setScale(0.25)
         leftButton.setScale(0.25)
@@ -108,7 +114,6 @@ public class GameScene: SKScene{
         
     }
     
-    
     func moveRight(){
         self.column += 1
         
@@ -119,7 +124,7 @@ public class GameScene: SKScene{
         }
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
-            self.char.position = CGPoint(x: 5, y: 530)
+            self.char.position = CGPoint(x: 5, y: 540)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
@@ -142,6 +147,8 @@ public class GameScene: SKScene{
             
             self.char.run(SKAction.animate(with: self.charToRight, timePerFrame: 0.125, resize: false, restore: true))
             self.char.run(toRight)
+            
+            self.char.texture = SKTexture(imageNamed: "CharRight1.png")
         }
         
     }
@@ -156,7 +163,7 @@ public class GameScene: SKScene{
         }
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
-            self.char.position = CGPoint(x: 5, y: 530)
+            self.char.position = CGPoint(x: 5, y: 540)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
@@ -179,6 +186,9 @@ public class GameScene: SKScene{
             
             self.char.run(SKAction.animate(with: self.charToLeft, timePerFrame: 0.125, resize: false, restore: true))
             self.char.run(toLeft)
+            
+            self.char.texture = SKTexture(imageNamed: "CharLeft1.png")
+
         }
     }
     
@@ -192,7 +202,7 @@ public class GameScene: SKScene{
         }
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
-            self.char.position = CGPoint(x: 5, y: 530)
+            self.char.position = CGPoint(x: 5, y: 540)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
@@ -215,6 +225,8 @@ public class GameScene: SKScene{
             
             self.char.run(SKAction.animate(with: self.charToDown, timePerFrame: 0.125, resize: false, restore: true))
             self.char.run(toDown)
+            self.char.texture = SKTexture(imageNamed: "CharDown1.png")
+
         }
     }
     
@@ -228,7 +240,7 @@ public class GameScene: SKScene{
         }
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
-            self.char.position = CGPoint(x: 5, y: 530)
+            self.char.position = CGPoint(x: 5, y: 540)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
@@ -251,6 +263,8 @@ public class GameScene: SKScene{
             
             self.char.run(SKAction.animate(with: self.charToUp, timePerFrame: 0.125, resize: false, restore: true))
             self.char.run(toUp)
+            self.char.texture = SKTexture(imageNamed: "CharUp1.png")
+
         }
     }
     
