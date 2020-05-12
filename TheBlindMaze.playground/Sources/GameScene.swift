@@ -5,18 +5,16 @@ import UIKit
 public class GameScene: SKScene{
     
     let map = SKSpriteNode(imageNamed: "MapaCompleto.png")
+    let blackoutMap = SKSpriteNode(imageNamed: "MapaBlackout.png")
     let char = SKSpriteNode(imageNamed: "CharDown1.png")
     let end = SKSpriteNode(imageNamed: "Objetivo.png")
     let gamepad = SKSpriteNode(imageNamed: "BackgroundGamepad.png")
+    let bar = SKSpriteNode(imageNamed: "Barra.png")
     
-    //let water = SKSpriteNode(imageNamed: "Waterfall1")
-        
     var charToRight: [SKTexture] = []
     var charToLeft: [SKTexture] = []
     var charToDown: [SKTexture] = []
     var charToUp: [SKTexture] = []
-    
-    //var waterfall: [SKTexture] = []
     
     var matrix:Matrix = Matrix()
     var line = 0
@@ -24,6 +22,16 @@ public class GameScene: SKScene{
     
     override public func didMove(to view: SKView) {
         matrix.map = Matrix.firstLevel()
+        
+        self.blackoutMap.scale(to: CGSize(width: 700, height: 500))
+        self.blackoutMap.position = CGPoint(x: 0, y: 125)
+        self.blackoutMap.anchorPoint = CGPoint(x: 0, y:0)
+        self.addChild(blackoutMap)
+        
+        self.bar.scale(to: CGSize(width: 700, height: 125))
+        self.bar.position = CGPoint(x: 0, y: 0)
+        self.map.anchorPoint = CGPoint(x: 0, y: 0)
+        self.addChild(bar)
         
         self.map.scale(to: CGSize(width: 700, height: 625))
         self.map.position = CGPoint(x: 0, y: 0)
@@ -39,11 +47,6 @@ public class GameScene: SKScene{
         self.gamepad.position = CGPoint(x: 130, y: 50)
         self.addChild(gamepad)
         
-//        self.water.scale(to: CGSize(width: 700, height: 80))
-//        self.water.position = CGPoint(x:0, y:0)
-//        self.anchorPoint = CGPoint(x:0, y:0)
-//        self.addChild(water)
-//
         self.char.scale(to: CGSize(width: 90, height: 90))
         self.char.position = CGPoint(x: 5, y: 540)
         self.char.anchorPoint = CGPoint(x: 0, y:0)
@@ -52,28 +55,20 @@ public class GameScene: SKScene{
         self.backgroundColor = .black
         
         self.createGamepad()
-        //self.animateWaterfall()
-        //self.configBar()
+        self.createBlackoutButton()
         
     }
     
-//    func animateWaterfall(){
-//        let prefix = "Waterfall"
-//        let ids = [1,2,3]
-//        var animation: [SKTexture] = []
-//
-//        for i in ids {
-//            let pose = SKTexture(imageNamed: "\(prefix)\(i)")
-//            animation.append(pose)
-//        }
-//
-//        self.waterfall = animation
-//
-//        self.water.scale(to: CGSize(width: 700, height: 80))
-//
-//        self.char.run(SKAction.repeatForever(SKAction.animate(with: self.waterfall, timePerFrame: 1/3, resize: false, restore: true)))
-//    }
-//
+    func createBlackoutButton(){
+        let blackoutButton = SKButtonNode(image: .init(color: .black, size: .init(width: 100, height: 40)), label: .init(text: "Blackout")){
+            self.blackout()
+        }
+        
+        blackoutButton.position = CGPoint(x: 500, y: 60)
+        self.addChild(blackoutButton)
+
+    }
+    
     func createGamepad(){
         
         let rightButton = SKButtonNode(image: SKSpriteNode(imageNamed: "GamepadRight.png"), label: .init(text: "")) {
@@ -266,6 +261,10 @@ public class GameScene: SKScene{
             self.char.texture = SKTexture(imageNamed: "CharUp1.png")
 
         }
+    }
+    
+    func blackout(){
+        self.map.removeFromParent()
     }
     
 }
