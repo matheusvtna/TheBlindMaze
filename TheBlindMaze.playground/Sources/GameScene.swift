@@ -9,12 +9,13 @@ public class GameScene: SKScene{
     let char = SKSpriteNode(imageNamed: "CharDown1.png")
     let end = SKSpriteNode(imageNamed: "Objetivo.png")
     let gamepad = SKSpriteNode(imageNamed: "BackgroundGamepad.png")
-    let bar = SKSpriteNode(imageNamed: "Barra.png")
     
     var charToRight: [SKTexture] = []
     var charToLeft: [SKTexture] = []
     var charToDown: [SKTexture] = []
     var charToUp: [SKTexture] = []
+    
+    var blackoutButton: SKButtonNode?
     
     var matrix:Matrix = Matrix()
     var line = 0
@@ -26,12 +27,6 @@ public class GameScene: SKScene{
         self.blackoutMap.scale(to: CGSize(width: 700, height: 500))
         self.blackoutMap.position = CGPoint(x: 0, y: 125)
         self.blackoutMap.anchorPoint = CGPoint(x: 0, y:0)
-        self.addChild(blackoutMap)
-        
-        self.bar.scale(to: CGSize(width: 700, height: 125))
-        self.bar.position = CGPoint(x: 0, y: 0)
-        self.map.anchorPoint = CGPoint(x: 0, y: 0)
-        self.addChild(bar)
         
         self.map.scale(to: CGSize(width: 700, height: 625))
         self.map.position = CGPoint(x: 0, y: 0)
@@ -41,7 +36,6 @@ public class GameScene: SKScene{
         self.end.scale(to: CGSize(width: 80, height: 80))
         self.end.position = CGPoint(x: 610, y: 535)
         self.end.anchorPoint = CGPoint(x: 0, y:0)
-        self.addChild(end)
         
         self.gamepad.scale(to: CGSize(width: 95, height: 95))
         self.gamepad.position = CGPoint(x: 130, y: 50)
@@ -50,7 +44,6 @@ public class GameScene: SKScene{
         self.char.scale(to: CGSize(width: 90, height: 90))
         self.char.position = CGPoint(x: 5, y: 540)
         self.char.anchorPoint = CGPoint(x: 0, y:0)
-        self.addChild(char)
         
         self.backgroundColor = .black
         
@@ -60,12 +53,12 @@ public class GameScene: SKScene{
     }
     
     func createBlackoutButton(){
-        let blackoutButton = SKButtonNode(image: .init(color: .black, size: .init(width: 100, height: 40)), label: .init(text: "Blackout")){
+        self.blackoutButton = SKButtonNode(image: .init(color: .black, size: .init(width: 100, height: 40)), label: .init(text: "Blackout")){
             self.blackout()
         }
         
-        blackoutButton.position = CGPoint(x: 500, y: 60)
-        self.addChild(blackoutButton)
+        self.blackoutButton!.position = CGPoint(x: 500, y: 60)
+        self.addChild(blackoutButton!)
 
     }
     
@@ -101,7 +94,6 @@ public class GameScene: SKScene{
         downButton.setScale(0.25)
         upButton.setScale(0.25)
 
-        
         self.addChild(rightButton)
         self.addChild(leftButton)
         self.addChild(downButton)
@@ -264,7 +256,11 @@ public class GameScene: SKScene{
     }
     
     func blackout(){
-        self.map.removeFromParent()
+        
+        self.addChild(self.blackoutMap)
+        self.addChild(self.end)
+        self.addChild(self.char)
+
     }
     
 }

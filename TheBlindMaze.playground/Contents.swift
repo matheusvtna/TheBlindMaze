@@ -4,7 +4,6 @@ import UIKit
 import SpriteKit
 import PlaygroundSupport
 
-
 let frame = CGRect(x:0, y:0, width: 700, height: 625)
 
 var gameScene = GameScene(size: frame.size)
