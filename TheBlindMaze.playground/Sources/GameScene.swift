@@ -9,6 +9,7 @@ public class GameScene: SKScene{
     let char = SKSpriteNode(imageNamed: "CharDown1.png")
     let end = SKSpriteNode(imageNamed: "Objetivo.png")
     let gamepad = SKSpriteNode(imageNamed: "BackgroundGamepad.png")
+    let ground = SKSpriteNode(imageNamed: "Ground.png")
     
     var charToRight: [SKTexture] = []
     var charToLeft: [SKTexture] = []
@@ -24,8 +25,8 @@ public class GameScene: SKScene{
     override public func didMove(to view: SKView) {
         matrix.map = Matrix.firstLevel()
         
-        self.blackoutMap.scale(to: CGSize(width: 700, height: 500))
-        self.blackoutMap.position = CGPoint(x: 0, y: 125)
+        self.blackoutMap.scale(to: CGSize(width: 700, height: 625))
+        self.blackoutMap.position = CGPoint(x: 0, y: 0)
         self.blackoutMap.anchorPoint = CGPoint(x: 0, y:0)
         
         self.map.scale(to: CGSize(width: 700, height: 625))
@@ -39,15 +40,17 @@ public class GameScene: SKScene{
         
         self.gamepad.scale(to: CGSize(width: 95, height: 95))
         self.gamepad.position = CGPoint(x: 130, y: 50)
-        self.addChild(gamepad)
         
         self.char.scale(to: CGSize(width: 90, height: 90))
         self.char.position = CGPoint(x: 5, y: 540)
         self.char.anchorPoint = CGPoint(x: 0, y:0)
         
+        self.ground.scale(to:CGSize(width: 90, height: 90))
+        self.ground.position = CGPoint(x:5, y:520)
+        self.ground.anchorPoint = CGPoint(x: 0, y:0)
+        
         self.backgroundColor = .black
         
-        self.createGamepad()
         self.createBlackoutButton()
         
     }
@@ -112,6 +115,7 @@ public class GameScene: SKScene{
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
             self.char.position = CGPoint(x: 5, y: 540)
+            self.ground.position = CGPoint(x: 5, y: 520)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
@@ -136,6 +140,9 @@ public class GameScene: SKScene{
             self.char.run(toRight)
             
             self.char.texture = SKTexture(imageNamed: "CharRight1.png")
+            
+            self.ground.run(toRight)
+
         }
         
     }
@@ -151,6 +158,7 @@ public class GameScene: SKScene{
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
             self.char.position = CGPoint(x: 5, y: 540)
+            self.ground.position = CGPoint(x: 5, y: 520)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
@@ -175,6 +183,9 @@ public class GameScene: SKScene{
             self.char.run(toLeft)
             
             self.char.texture = SKTexture(imageNamed: "CharLeft1.png")
+            
+            self.ground.run(toLeft)
+
 
         }
     }
@@ -190,6 +201,7 @@ public class GameScene: SKScene{
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
             self.char.position = CGPoint(x: 5, y: 540)
+            self.ground.position = CGPoint(x: 5, y: 520)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
@@ -213,6 +225,9 @@ public class GameScene: SKScene{
             self.char.run(SKAction.animate(with: self.charToDown, timePerFrame: 0.125, resize: false, restore: true))
             self.char.run(toDown)
             self.char.texture = SKTexture(imageNamed: "CharDown1.png")
+            
+            self.ground.run(toDown)
+
 
         }
     }
@@ -228,6 +243,7 @@ public class GameScene: SKScene{
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
             self.char.position = CGPoint(x: 5, y: 540)
+            self.ground.position = CGPoint(x: 5, y:520)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
@@ -251,15 +267,20 @@ public class GameScene: SKScene{
             self.char.run(SKAction.animate(with: self.charToUp, timePerFrame: 0.125, resize: false, restore: true))
             self.char.run(toUp)
             self.char.texture = SKTexture(imageNamed: "CharUp1.png")
+            
+            self.ground.run(toUp)
 
         }
     }
     
     func blackout(){
-        
+        self.map.removeFromParent()
         self.addChild(self.blackoutMap)
+        self.addChild(self.ground)
         self.addChild(self.end)
         self.addChild(self.char)
+        self.addChild(gamepad)
+        self.createGamepad()
 
     }
     
