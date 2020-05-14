@@ -23,6 +23,8 @@ public class GameScene: SKScene{
     var column = 0
     
     override public func didMove(to view: SKView) {
+        super.didMove(to: view)
+        
         matrix.map = Matrix.firstLevel()
         
         self.blackoutMap.scale(to: CGSize(width: 700, height: 625))
@@ -183,9 +185,7 @@ public class GameScene: SKScene{
             self.char.run(toLeft)
             
             self.char.texture = SKTexture(imageNamed: "CharLeft1.png")
-            
             self.ground.run(toLeft)
-
 
         }
     }
