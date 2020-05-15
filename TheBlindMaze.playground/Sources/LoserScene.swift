@@ -6,10 +6,13 @@ public class LoserScene: SKScene{
     let map = SKSpriteNode(imageNamed: "Waterfall.png")
     let char = SKSpriteNode(imageNamed: "CharFall1.png")
     
+    let loserLabel = SKLabelNode()
     let menuButton = SKShapeNode()
     let menuButtonLabel = SKLabelNode()
     
     var charToFalling: [SKTexture] = []
+    
+    var count = 4
 
     override public func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -25,7 +28,7 @@ public class LoserScene: SKScene{
         self.addChild(char)
         
         self.animateChar()
-        self.createButtonBack()
+        self.setTimer()
     }
     
     func animateChar(){
@@ -46,6 +49,40 @@ public class LoserScene: SKScene{
         
         self.char.run(SKAction.animate(with: self.charToFalling, timePerFrame: 0.125, resize: false, restore: true))
         self.char.run(falling)
+        
+    }
+    
+    func setTimer(){
+        let wait = SKAction.wait(forDuration: 1)
+        let block = SKAction.run({
+            [unowned self] in
+
+            if self.count > 0{
+                self.count -= 1
+            }else{
+                self.removeAction(forKey: "countdown")
+                self.createLabel()
+                self.createButtonBack()
+            }
+        })
+        
+        let sequence = SKAction.sequence([wait,block])
+
+        run(SKAction.repeatForever(sequence), withKey: "countdown")
+    }
+    
+    func createLabel(){
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        
+        let pixeledFont = UIFont(name: "Pixeled", size: 40)
+        
+        let loserString = NSMutableAttributedString(string: "YOU LOST...", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 50, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), NSMutableAttributedString.Key.paragraphStyle: paragraphStyle])
+        
+        self.loserLabel.attributedText = loserString
+        self.loserLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 100)
+        self.addChild(loserLabel)
         
     }
     

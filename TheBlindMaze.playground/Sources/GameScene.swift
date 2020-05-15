@@ -19,6 +19,9 @@ public class GameScene: SKScene{
     var line = 0
     var column = 0
     
+    let lineEnd = 0
+    let columnEnd = 6
+    
     var timeLabel = SKLabelNode(text: "")
     var count = 60
     
@@ -58,21 +61,37 @@ public class GameScene: SKScene{
         let rightButton = SKButtonNode(image: SKSpriteNode(imageNamed: "GamepadRight.png"), label: .init(text: "")) {
             
             self.moveRight()
+            
+            if(self.line == self.lineEnd && self.column == self.columnEnd){
+                self.win()
+            }
         }
         
         let leftButton = SKButtonNode(image: SKSpriteNode(imageNamed: "GamepadLeft.png"), label: .init(text: "")) {
             
             self.moveLeft()
+            
+            if(self.line == self.lineEnd && self.column == self.columnEnd){
+                self.win()
+            }
         }
         
         let downButton = SKButtonNode(image: SKSpriteNode(imageNamed: "GamepadDown.png"), label: .init(text: "")) {
             
             self.moveDown()
+            
+            if(self.line == self.lineEnd && self.column == self.columnEnd){
+                self.win()
+            }
         }
         
         let upButton = SKButtonNode(image: SKSpriteNode(imageNamed: "GamepadUp.png"), label: .init(text: "")) {
             
             self.moveUp()
+            
+            if(self.line == self.lineEnd && self.column == self.columnEnd){
+                self.win()
+            }
         }
         
         rightButton.position = CGPoint(x: 156, y:53)
@@ -294,7 +313,17 @@ public class GameScene: SKScene{
         let sceneMoveTo = LoserScene(size: self.size)
         sceneMoveTo.scaleMode = self.scaleMode
         
-        let transition = SKTransition.moveIn(with: .down, duration: 0.3)
+        let transition = SKTransition.moveIn(with: .down, duration: 0.5)
+        self.scene?.view?.presentScene(sceneMoveTo ,transition: transition)
+    }
+    
+    func win(){
+        self.char.removeFromParent()
+        
+        let sceneMoveTo = WinnerScene(size: self.size)
+        sceneMoveTo.scaleMode = self.scaleMode
+        
+        let transition = SKTransition.moveIn(with: .down, duration: 0.5)
         self.scene?.view?.presentScene(sceneMoveTo ,transition: transition)
     }
 }
