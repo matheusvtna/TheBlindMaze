@@ -17,7 +17,7 @@ public class MenuScene: SKScene{
     override public func didMove(to view: SKView) {
         super.didMove(to: view)
         
-        self.menuBackground.scale(to: CGSize(width: 700, height: 645))
+        self.menuBackground.scale(to: CGSize(width: 700, height: 625))
         self.menuBackground.anchorPoint = CGPoint(x:0, y:0)
         self.menuBackground.position = CGPoint(x:0, y:0)
         self.addChild(menuBackground)
@@ -44,7 +44,7 @@ public class MenuScene: SKScene{
         let touchLocation = touch!.location(in: self)
         
         if self.startButton.contains(touchLocation) {
-            let sceneMoveTo = GameScene(size: self.size)
+            let sceneMoveTo = TutorialScene(size: self.size)
             sceneMoveTo.scaleMode = self.scaleMode
             
             let transition = SKTransition.moveIn(with: .down, duration: 0.3)
@@ -61,7 +61,7 @@ public class MenuScene: SKScene{
         
         let pixeledFont = UIFont(name: "Pixeled", size: 50)
         
-        let nameString = NSMutableAttributedString(string: "THE BLIND MAZE", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 50, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)])
+        let nameString = NSMutableAttributedString(string: "THE BLIND MAZE", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 50, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), NSMutableAttributedString.Key.paragraphStyle: paragraphStyle])
         
         self.nameLabel.attributedText = nameString
         self.nameLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
@@ -75,7 +75,7 @@ public class MenuScene: SKScene{
         let startButtonString = NSMutableAttributedString(string: "START", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 20, weight: .ultraLight), .foregroundColor : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)])
         
         self.startButton.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 200, height: 50), cornerRadius: 20).cgPath
-        self.startButton.position = CGPoint(x:self.frame.midX - 100, y:self.frame.midY - 300)
+        self.startButton.position = CGPoint(x:self.frame.midX - 100, y:self.frame.midY - 270)
         self.startButton.fillColor = .black
         self.startButton.lineWidth = 1
         self.startButton.strokeColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)

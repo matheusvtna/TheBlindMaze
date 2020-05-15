@@ -16,6 +16,7 @@ public class GameScene: SKScene{
     var charToDown: [SKTexture] = []
     var charToUp: [SKTexture] = []
     
+    
     var blackoutButton: SKButtonNode?
     
     var matrix:Matrix = Matrix()
@@ -30,41 +31,30 @@ public class GameScene: SKScene{
         self.blackoutMap.scale(to: CGSize(width: 700, height: 625))
         self.blackoutMap.position = CGPoint(x: 0, y: 0)
         self.blackoutMap.anchorPoint = CGPoint(x: 0, y:0)
-        
-        self.map.scale(to: CGSize(width: 700, height: 625))
-        self.map.position = CGPoint(x: 0, y: 0)
-        self.map.anchorPoint = CGPoint(x: 0, y:0)
-        self.addChild(map)
-        
-        self.end.scale(to: CGSize(width: 80, height: 80))
-        self.end.position = CGPoint(x: 610, y: 535)
-        self.end.anchorPoint = CGPoint(x: 0, y:0)
-        
-        self.gamepad.scale(to: CGSize(width: 95, height: 95))
-        self.gamepad.position = CGPoint(x: 130, y: 50)
-        
-        self.char.scale(to: CGSize(width: 90, height: 90))
-        self.char.position = CGPoint(x: 5, y: 540)
-        self.char.anchorPoint = CGPoint(x: 0, y:0)
+        self.addChild(blackoutMap)
         
         self.ground.scale(to:CGSize(width: 90, height: 90))
         self.ground.position = CGPoint(x:5, y:510)
         self.ground.anchorPoint = CGPoint(x: 0, y:0)
+        self.addChild(ground)
+        
+        self.end.scale(to: CGSize(width: 80, height: 80))
+        self.end.position = CGPoint(x: 610, y: 535)
+        self.end.anchorPoint = CGPoint(x: 0, y:0)
+        self.addChild(end)
+        
+        self.gamepad.scale(to: CGSize(width: 95, height: 95))
+        self.gamepad.position = CGPoint(x: 130, y: 50)
+        self.addChild(gamepad)
+        
+        self.char.scale(to: CGSize(width: 90, height: 90))
+        self.char.position = CGPoint(x: 5, y: 540)
+        self.char.anchorPoint = CGPoint(x: 0, y:0)
+        self.addChild(char)
         
         self.backgroundColor = .black
+        self.createGamepad()
         
-        self.createBlackoutButton()
-        
-    }
-    
-    func createBlackoutButton(){
-        self.blackoutButton = SKButtonNode(image: .init(color: .black, size: .init(width: 100, height: 40)), label: .init(text: "Blackout")){
-            self.blackout()
-        }
-        
-        self.blackoutButton!.position = CGPoint(x: 500, y: 60)
-        self.addChild(blackoutButton!)
-
     }
     
     func createGamepad(){
@@ -200,6 +190,13 @@ public class GameScene: SKScene{
         }
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
+            
+            let sceneMoveTo = LoserScene(size: self.size)
+            sceneMoveTo.scaleMode = self.scaleMode
+            
+            let transition = SKTransition.moveIn(with: .down, duration: 0.3)
+            self.scene?.view?.presentScene(sceneMoveTo ,transition: transition)
+            
             self.char.position = CGPoint(x: 5, y: 540)
             self.ground.position = CGPoint(x: 5, y: 510)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
@@ -272,16 +269,4 @@ public class GameScene: SKScene{
 
         }
     }
-    
-    func blackout(){
-        self.map.removeFromParent()
-        self.addChild(self.blackoutMap)
-        self.addChild(self.ground)
-        self.addChild(self.end)
-        self.addChild(self.char)
-        self.addChild(gamepad)
-        self.createGamepad()
-
-    }
-    
 }
