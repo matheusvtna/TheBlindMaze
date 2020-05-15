@@ -17,10 +17,15 @@ public class MenuScene: SKScene{
     override public func didMove(to view: SKView) {
         super.didMove(to: view)
         
-        self.menuBackground.scale(to: CGSize(width: 700, height: 625))
+        self.menuBackground.scale(to: CGSize(width: 700, height: 645))
         self.menuBackground.anchorPoint = CGPoint(x:0, y:0)
         self.menuBackground.position = CGPoint(x:0, y:0)
         self.addChild(menuBackground)
+        
+//        self.nameShape.scale(to: CGSize(width: 700, height: 200))
+//        self.nameShape.anchorPoint = CGPoint(x:0, y:0)
+//        self.nameShape.position = CGPoint(x:0, y:300)
+//        self.addChild(nameShape)
         
         self.char.scale(to: CGSize(width: 90, height: 90))
         self.char.anchorPoint = CGPoint(x:0, y:0)
@@ -56,7 +61,7 @@ public class MenuScene: SKScene{
         
         let pixeledFont = UIFont(name: "Pixeled", size: 50)
         
-        let nameString = NSMutableAttributedString(string: "THE BLIND MAZE", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 50, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)])
+        let nameString = NSMutableAttributedString(string: "THE BLIND MAZE", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 50, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)])
         
         self.nameLabel.attributedText = nameString
         self.nameLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
@@ -67,13 +72,13 @@ public class MenuScene: SKScene{
     func createButton(){
         let pixeledFont = UIFont(name: "Pixeled", size: 20)
 
-        let startButtonString = NSMutableAttributedString(string: "START", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 20, weight: .ultraLight), .foregroundColor : #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)])
+        let startButtonString = NSMutableAttributedString(string: "START", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 20, weight: .ultraLight), .foregroundColor : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)])
         
         self.startButton.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 200, height: 50), cornerRadius: 20).cgPath
         self.startButton.position = CGPoint(x:self.frame.midX - 100, y:self.frame.midY - 300)
         self.startButton.fillColor = .black
         self.startButton.lineWidth = 1
-        self.startButton.strokeColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        self.startButton.strokeColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         self.startButtonLabel.attributedText = startButtonString
         self.startButtonLabel.position = CGPoint(x: startButton.frame.midX, y: startButton.frame.midY - 15)
@@ -102,15 +107,15 @@ public class MenuScene: SKScene{
     
     func animateChar(){
         
-        let ids = [1,2,1,3,1,2,1,3,1,2,1,3,1,2,1,3,1,2,1,3,1,2,1,3,1,2,1,3,1,2,1,3]
+        let ids = [1,2,1,3,1,2,1,3,1,2,1,3,1,2,1,3,1,2,1,3,1,2,1,3]
                 
         self.charWalk = animation(prefix1: "CharRight", prefix2: "CharLeft", ids: ids)
         
         self.char.scale(to: CGSize(width: 90, height: 90))
         
-        let toRight = SKAction.moveTo(x: 705, duration: 4.0)
+        let toRight = SKAction.moveTo(x: 705, duration: 3.0)
         
-        let toLeft = SKAction.moveTo(x: -95, duration: 4.0)
+        let toLeft = SKAction.moveTo(x: -95, duration: 3.0)
         
         let sequence = SKAction.sequence([toRight, toLeft])
         
@@ -130,7 +135,7 @@ public class MenuScene: SKScene{
         
         self.changeBackground = frames
         
-        self.menuBackground.run(SKAction.repeatForever(SKAction.animate(with: self.changeBackground, timePerFrame: 4.0, resize: false, restore: true)))
+        self.menuBackground.run(SKAction.repeatForever(SKAction.animate(with: self.changeBackground, timePerFrame: 3.0, resize: false, restore: true)))
     
     }    
     

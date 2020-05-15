@@ -48,7 +48,7 @@ public class GameScene: SKScene{
         self.char.anchorPoint = CGPoint(x: 0, y:0)
         
         self.ground.scale(to:CGSize(width: 90, height: 90))
-        self.ground.position = CGPoint(x:5, y:520)
+        self.ground.position = CGPoint(x:5, y:510)
         self.ground.anchorPoint = CGPoint(x: 0, y:0)
         
         self.backgroundColor = .black
@@ -117,7 +117,7 @@ public class GameScene: SKScene{
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
             self.char.position = CGPoint(x: 5, y: 540)
-            self.ground.position = CGPoint(x: 5, y: 520)
+            self.ground.position = CGPoint(x: 5, y: 510)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
@@ -160,7 +160,7 @@ public class GameScene: SKScene{
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
             self.char.position = CGPoint(x: 5, y: 540)
-            self.ground.position = CGPoint(x: 5, y: 520)
+            self.ground.position = CGPoint(x: 5, y: 510)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
@@ -201,7 +201,7 @@ public class GameScene: SKScene{
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
             self.char.position = CGPoint(x: 5, y: 540)
-            self.ground.position = CGPoint(x: 5, y: 520)
+            self.ground.position = CGPoint(x: 5, y: 510)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
@@ -243,7 +243,7 @@ public class GameScene: SKScene{
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
             self.char.position = CGPoint(x: 5, y: 540)
-            self.ground.position = CGPoint(x: 5, y:520)
+            self.ground.position = CGPoint(x: 5, y:510)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
