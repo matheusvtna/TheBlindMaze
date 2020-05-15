@@ -59,25 +59,21 @@ public class GameScene: SKScene{
             
             self.moveRight()
         }
-        print("Right")
         
         let leftButton = SKButtonNode(image: SKSpriteNode(imageNamed: "GamepadLeft.png"), label: .init(text: "")) {
             
             self.moveLeft()
         }
-        print("Left")
         
         let downButton = SKButtonNode(image: SKSpriteNode(imageNamed: "GamepadDown.png"), label: .init(text: "")) {
             
             self.moveDown()
         }
-        print("Down")
         
         let upButton = SKButtonNode(image: SKSpriteNode(imageNamed: "GamepadUp.png"), label: .init(text: "")) {
             
             self.moveUp()
         }
-        print("Up")
         
         rightButton.position = CGPoint(x: 156, y:53)
         leftButton.position = CGPoint(x: 105, y:53)
@@ -293,6 +289,8 @@ public class GameScene: SKScene{
     }
     
     func lost(){
+        self.char.removeFromParent()
+        
         let sceneMoveTo = LoserScene(size: self.size)
         sceneMoveTo.scaleMode = self.scaleMode
         

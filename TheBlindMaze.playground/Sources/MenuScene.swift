@@ -22,11 +22,6 @@ public class MenuScene: SKScene{
         self.menuBackground.position = CGPoint(x:0, y:0)
         self.addChild(menuBackground)
         
-//        self.nameShape.scale(to: CGSize(width: 700, height: 200))
-//        self.nameShape.anchorPoint = CGPoint(x:0, y:0)
-//        self.nameShape.position = CGPoint(x:0, y:300)
-//        self.addChild(nameShape)
-        
         self.char.scale(to: CGSize(width: 90, height: 90))
         self.char.anchorPoint = CGPoint(x:0, y:0)
         self.char.position = CGPoint(x: 5, y: 110)

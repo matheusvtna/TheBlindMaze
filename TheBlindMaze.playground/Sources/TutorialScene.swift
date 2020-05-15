@@ -88,7 +88,7 @@ public class TutorialScene: SKScene{
         let blackoutButtonString = NSMutableAttributedString(string: "BLACKOUT", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 20, weight: .ultraLight), .foregroundColor : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)])
         
         self.blackoutButton.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 200, height: 50), cornerRadius: 20).cgPath
-        self.blackoutButton.position = CGPoint(x:160, y:20)
+        self.blackoutButton.position = CGPoint(x:130, y:30)
         self.blackoutButton.fillColor = .black
         self.blackoutButton.lineWidth = 1
         self.blackoutButton.strokeColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -155,6 +155,8 @@ public class TutorialScene: SKScene{
     }
         
     func blackout(){
+        print("Blackout")
+        
         let sceneMoveTo = GameScene(size: self.size)
         sceneMoveTo.scaleMode = self.scaleMode
         
