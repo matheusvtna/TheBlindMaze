@@ -13,8 +13,11 @@ public class TutorialScene: SKScene{
     var buttonOk = SKShapeNode()
     var buttonOkLabel = SKLabelNode()
             
-    var blackoutButton: SKButtonNode?
+    let blackoutButton = SKShapeNode()
+    let blackoutButtonLabel = SKLabelNode()
+    
     var timeLabel = SKLabelNode(text: "")
+    var count = 30
     
     override public func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -38,6 +41,7 @@ public class TutorialScene: SKScene{
         
         self.createTutorialLabel()
         self.createButtonOk()
+        
     }
     
     override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -50,11 +54,50 @@ public class TutorialScene: SKScene{
             self.menuBackground.removeFromParent()
             self.buttonOk.removeFromParent()
             self.buttonOkLabel.removeFromParent()
+            
             self.createBlackoutButton()
             self.createTimeLabel()
-            
+            self.setTimer()
         }
+        else if self.blackoutButton.contains(touchLocation){
+            self.blackout()
+        }
+    }
+    
+    func setTimer(){
+        let wait = SKAction.wait(forDuration: 1)
+        let block = SKAction.run({
+            [unowned self] in
+
+            if self.count > 0{
+                self.count -= 1
+            }else{
+                self.removeAction(forKey: "countdown")
+                self.blackout()
+            }
+        })
         
+        let sequence = SKAction.sequence([wait,block])
+
+        run(SKAction.repeatForever(sequence), withKey: "countdown")
+    }
+    
+    func createBlackoutButton(){
+        let pixeledFont = UIFont(name: "Pixeled", size: 20)
+
+        let blackoutButtonString = NSMutableAttributedString(string: "BLACKOUT", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 20, weight: .ultraLight), .foregroundColor : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)])
+        
+        self.blackoutButton.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 200, height: 50), cornerRadius: 20).cgPath
+        self.blackoutButton.position = CGPoint(x:160, y:20)
+        self.blackoutButton.fillColor = .black
+        self.blackoutButton.lineWidth = 1
+        self.blackoutButton.strokeColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
+        self.blackoutButtonLabel.attributedText = blackoutButtonString
+        self.blackoutButtonLabel.position = CGPoint(x: blackoutButton.frame.midX, y: blackoutButton.frame.midY - 15)
+        
+        self.addChild(blackoutButton)
+        self.addChild(blackoutButtonLabel)
     }
     
     func createTutorialLabel(){
@@ -64,7 +107,7 @@ public class TutorialScene: SKScene{
         
         let pixeledFont = UIFont(name: "Pixeled", size: 14)
         
-        let nameString = NSMutableAttributedString(string: "WELCOME TO THE BLIND MAZE.\nYOU HAVE 1 MINUTE UNTIL NIGHTFALL. SO, MEMORIZE ALL THE OBSTACLES IN THE MAP TO GUIDE FULANINHO THROUGH GAMEPAD AND MAKE SURE HE REACHES THE FRUIT BASKET.YOU CAN ACCELERATE EVENING BY CLICKING THE BLACKOUT BUTTON.\nCLICK OK AND THE MAZE WILL APPEAR.\n\nGOOD LUCK!", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 30, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), NSMutableAttributedString.Key.paragraphStyle: paragraphStyle])
+        let nameString = NSMutableAttributedString(string: "WELCOME TO THE BLIND MAZE.\nYOU HAVE 30 SECONDS UNTIL NIGHTFALL. SO, MEMORIZE ALL THE OBSTACLES IN THE MAP TO GUIDE FULANINHO THROUGH GAMEPAD AND MAKE SURE HE WILL REACH THE FRUIT BASKET IN NO MORE THAN 1 MINUTE.YOU CAN ACCELERATE EVENING BY CLICKING THE BLACKOUT BUTTON.\nCLICK OK AND THE MAZE WILL APPEAR.\n\nGOOD LUCK!", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 30, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), NSMutableAttributedString.Key.paragraphStyle: paragraphStyle])
         
         self.tutorialLabel.attributedText = nameString
         self.tutorialLabel.numberOfLines = 3
@@ -91,47 +134,32 @@ public class TutorialScene: SKScene{
         
         self.addChild(buttonOk)
         self.addChild(buttonOkLabel)
-    
     }
     
     func createTimeLabel(){
-        
-        var count = 60
-        
+                
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         paragraphStyle.lineBreakMode = .byWordWrapping
         
         let pixeledFont = UIFont(name: "Pixeled", size: 14)
         
-        var nameString = NSMutableAttributedString(string: "TEMPO RESTANTE: \(count) s", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 30, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)])
+        var nameString = NSMutableAttributedString(string: "TIME LEFT: \(count) s", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 14, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)])
         
         timeLabel.attributedText = nameString
-        timeLabel.position = CGPoint(x: 400, y: 50)
+        timeLabel.position = CGPoint(x: 500, y: 50)
         
-        self.timeLabel.run(.repeatForever(.sequence([.run{print("\(count)") ; count -= 1; nameString = NSMutableAttributedString(string: "TEMPO RESTANTE: \(count) s", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 30, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)]) ; self.self.timeLabel.attributedText = nameString}, .wait(forDuration: 1)])))
+        self.timeLabel.run(.repeatForever(.sequence([.run{nameString = NSMutableAttributedString(string: "TIME LEFT: \(self.count) s", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 14, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)]) ; self.self.timeLabel.attributedText = nameString}, .wait(forDuration: 1)])))
         
         self.addChild(timeLabel)
-                
     }
-    
-    func createBlackoutButton(){
-        self.blackoutButton = SKButtonNode(image: .init(color: .black, size: .init(width: 160, height: 60)), label: .init(text: "Blackout")){
-            self.blackout()
-        }
         
-        self.blackoutButton!.position = CGPoint(x: 100, y: 60)
-        self.addChild(blackoutButton!)
-
-    }
-    
     func blackout(){
         let sceneMoveTo = GameScene(size: self.size)
         sceneMoveTo.scaleMode = self.scaleMode
         
         let transition = SKTransition.fade(with: .black, duration: 2.0)
         self.scene?.view?.presentScene(sceneMoveTo,transition: transition)
-
     }
     
 }

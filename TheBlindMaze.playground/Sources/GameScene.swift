@@ -9,34 +9,29 @@ public class GameScene: SKScene{
     let char = SKSpriteNode(imageNamed: "CharDown1.png")
     let end = SKSpriteNode(imageNamed: "Objetivo.png")
     let gamepad = SKSpriteNode(imageNamed: "BackgroundGamepad.png")
-    let ground = SKSpriteNode(imageNamed: "Ground.png")
     
     var charToRight: [SKTexture] = []
     var charToLeft: [SKTexture] = []
     var charToDown: [SKTexture] = []
     var charToUp: [SKTexture] = []
-    
-    
-    var blackoutButton: SKButtonNode?
-    
+        
     var matrix:Matrix = Matrix()
     var line = 0
     var column = 0
+    
+    var timeLabel = SKLabelNode(text: "")
+    var count = 60
     
     override public func didMove(to view: SKView) {
         super.didMove(to: view)
         
         matrix.map = Matrix.firstLevel()
+        self.backgroundColor = .black
         
         self.blackoutMap.scale(to: CGSize(width: 700, height: 625))
         self.blackoutMap.position = CGPoint(x: 0, y: 0)
         self.blackoutMap.anchorPoint = CGPoint(x: 0, y:0)
         self.addChild(blackoutMap)
-        
-        self.ground.scale(to:CGSize(width: 90, height: 90))
-        self.ground.position = CGPoint(x:5, y:510)
-        self.ground.anchorPoint = CGPoint(x: 0, y:0)
-        self.addChild(ground)
         
         self.end.scale(to: CGSize(width: 80, height: 80))
         self.end.position = CGPoint(x: 610, y: 535)
@@ -52,8 +47,9 @@ public class GameScene: SKScene{
         self.char.anchorPoint = CGPoint(x: 0, y:0)
         self.addChild(char)
         
-        self.backgroundColor = .black
         self.createGamepad()
+        self.createTimeLabel()
+        self.setTimer()
         
     }
     
@@ -63,21 +59,25 @@ public class GameScene: SKScene{
             
             self.moveRight()
         }
+        print("Right")
         
         let leftButton = SKButtonNode(image: SKSpriteNode(imageNamed: "GamepadLeft.png"), label: .init(text: "")) {
             
             self.moveLeft()
         }
+        print("Left")
         
         let downButton = SKButtonNode(image: SKSpriteNode(imageNamed: "GamepadDown.png"), label: .init(text: "")) {
             
             self.moveDown()
         }
+        print("Down")
         
         let upButton = SKButtonNode(image: SKSpriteNode(imageNamed: "GamepadUp.png"), label: .init(text: "")) {
             
             self.moveUp()
         }
+        print("Up")
         
         rightButton.position = CGPoint(x: 156, y:53)
         leftButton.position = CGPoint(x: 105, y:53)
@@ -93,7 +93,6 @@ public class GameScene: SKScene{
         self.addChild(leftButton)
         self.addChild(downButton)
         self.addChild(upButton)
-        
     }
     
     func moveRight(){
@@ -106,8 +105,9 @@ public class GameScene: SKScene{
         }
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
+            self.lost()
+            
             self.char.position = CGPoint(x: 5, y: 540)
-            self.ground.position = CGPoint(x: 5, y: 510)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
@@ -133,10 +133,7 @@ public class GameScene: SKScene{
             
             self.char.texture = SKTexture(imageNamed: "CharRight1.png")
             
-            self.ground.run(toRight)
-
         }
-        
     }
     
     func moveLeft(){
@@ -149,8 +146,9 @@ public class GameScene: SKScene{
         }
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
+            self.lost()
+            
             self.char.position = CGPoint(x: 5, y: 540)
-            self.ground.position = CGPoint(x: 5, y: 510)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
@@ -175,8 +173,6 @@ public class GameScene: SKScene{
             self.char.run(toLeft)
             
             self.char.texture = SKTexture(imageNamed: "CharLeft1.png")
-            self.ground.run(toLeft)
-
         }
     }
     
@@ -190,15 +186,9 @@ public class GameScene: SKScene{
         }
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
-            
-            let sceneMoveTo = LoserScene(size: self.size)
-            sceneMoveTo.scaleMode = self.scaleMode
-            
-            let transition = SKTransition.moveIn(with: .down, duration: 0.3)
-            self.scene?.view?.presentScene(sceneMoveTo ,transition: transition)
+            self.lost()
             
             self.char.position = CGPoint(x: 5, y: 540)
-            self.ground.position = CGPoint(x: 5, y: 510)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
@@ -223,9 +213,6 @@ public class GameScene: SKScene{
             self.char.run(toDown)
             self.char.texture = SKTexture(imageNamed: "CharDown1.png")
             
-            self.ground.run(toDown)
-
-
         }
     }
     
@@ -239,8 +226,9 @@ public class GameScene: SKScene{
         }
         else if(self.matrix.map[self.line][self.column]){
             print("You lost!")
+            self.lost()
+            
             self.char.position = CGPoint(x: 5, y: 540)
-            self.ground.position = CGPoint(x: 5, y:510)
             print("map[\(self.line)][\(self.column)] = \(self.matrix.map[self.line][self.column])")
             self.line = 0
             self.column = 0
@@ -264,9 +252,51 @@ public class GameScene: SKScene{
             self.char.run(SKAction.animate(with: self.charToUp, timePerFrame: 0.125, resize: false, restore: true))
             self.char.run(toUp)
             self.char.texture = SKTexture(imageNamed: "CharUp1.png")
-            
-            self.ground.run(toUp)
-
+    
         }
+    }
+    
+    func setTimer(){
+        let wait = SKAction.wait(forDuration: 1)
+        let block = SKAction.run({
+            [unowned self] in
+
+            if self.count > 0{
+                self.count -= 1
+            }else{
+                self.removeAction(forKey: "countdown")
+                self.lost()
+            }
+        })
+        
+        let sequence = SKAction.sequence([wait,block])
+
+        run(SKAction.repeatForever(sequence), withKey: "countdown")
+    }
+    
+    func createTimeLabel(){
+                
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        
+        let pixeledFont = UIFont(name: "Pixeled", size: 14)
+        
+        var nameString = NSMutableAttributedString(string: "TIME LEFT: \(count) s", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 14, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)])
+        
+        timeLabel.attributedText = nameString
+        timeLabel.position = CGPoint(x: 500, y: 50)
+        
+        self.timeLabel.run(.repeatForever(.sequence([.run{nameString = NSMutableAttributedString(string: "TIME LEFT: \(self.count) s", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 14, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)]) ; self.self.timeLabel.attributedText = nameString}, .wait(forDuration: 1)])))
+        
+        self.addChild(timeLabel)
+    }
+    
+    func lost(){
+        let sceneMoveTo = LoserScene(size: self.size)
+        sceneMoveTo.scaleMode = self.scaleMode
+        
+        let transition = SKTransition.moveIn(with: .down, duration: 0.3)
+        self.scene?.view?.presentScene(sceneMoveTo ,transition: transition)
     }
 }
