@@ -78,7 +78,7 @@ public class LoserScene: SKScene{
         
         let pixeledFont = UIFont(name: "Pixeled", size: 40)
         
-        let loserString = NSMutableAttributedString(string: "YOU LOST...", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 50, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), NSMutableAttributedString.Key.paragraphStyle: paragraphStyle])
+        let loserString = NSMutableAttributedString(string: "YOU LOST...", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 50, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), NSMutableAttributedString.Key.paragraphStyle: paragraphStyle])
         
         self.loserLabel.attributedText = loserString
         self.loserLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 100)

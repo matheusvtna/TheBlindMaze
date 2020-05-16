@@ -83,11 +83,11 @@ public class TutorialScene: SKScene{
     }
     
     func createBlackoutButton(){
-        let pixeledFont = UIFont(name: "Pixeled", size: 20)
+        let pixeledFont = UIFont(name: "Pixeled", size: 18)
 
         let blackoutButtonString = NSMutableAttributedString(string: "BLACKOUT", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 20, weight: .ultraLight), .foregroundColor : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)])
         
-        self.blackoutButton.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 200, height: 50), cornerRadius: 20).cgPath
+        self.blackoutButton.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 200, height: 60), cornerRadius: 20).cgPath
         self.blackoutButton.position = CGPoint(x:130, y:30)
         self.blackoutButton.fillColor = .black
         self.blackoutButton.lineWidth = 1
@@ -147,7 +147,7 @@ public class TutorialScene: SKScene{
         var nameString = NSMutableAttributedString(string: "TIME LEFT: \(count) s", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 14, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)])
         
         timeLabel.attributedText = nameString
-        timeLabel.position = CGPoint(x: 500, y: 50)
+        timeLabel.position = CGPoint(x: 510, y: 50)
         
         self.timeLabel.run(.repeatForever(.sequence([.run{nameString = NSMutableAttributedString(string: "TIME LEFT: \(self.count) s", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 14, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)]) ; self.self.timeLabel.attributedText = nameString}, .wait(forDuration: 1)])))
         

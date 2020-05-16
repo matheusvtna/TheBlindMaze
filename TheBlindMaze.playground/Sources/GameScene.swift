@@ -300,7 +300,7 @@ public class GameScene: SKScene{
         var nameString = NSMutableAttributedString(string: "TIME LEFT: \(count) s", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 14, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)])
         
         timeLabel.attributedText = nameString
-        timeLabel.position = CGPoint(x: 500, y: 50)
+        timeLabel.position = CGPoint(x: 510, y: 50)
         
         self.timeLabel.run(.repeatForever(.sequence([.run{nameString = NSMutableAttributedString(string: "TIME LEFT: \(self.count) s", attributes: [NSMutableAttributedString.Key.font : pixeledFont ?? UIFont.systemFont(ofSize: 14, weight: .ultraLight), .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)]) ; self.self.timeLabel.attributedText = nameString}, .wait(forDuration: 1)])))
         
@@ -318,12 +318,11 @@ public class GameScene: SKScene{
     }
     
     func win(){
-        self.char.removeFromParent()
         
         let sceneMoveTo = WinnerScene(size: self.size)
         sceneMoveTo.scaleMode = self.scaleMode
         
-        let transition = SKTransition.moveIn(with: .down, duration: 0.5)
+        let transition = SKTransition.fade(with: .clear, duration: 1.0)
         self.scene?.view?.presentScene(sceneMoveTo ,transition: transition)
     }
 }
