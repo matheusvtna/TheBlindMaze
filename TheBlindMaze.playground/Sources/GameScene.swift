@@ -322,7 +322,7 @@ public class GameScene: SKScene{
         let sceneMoveTo = WinnerScene(size: self.size)
         sceneMoveTo.scaleMode = self.scaleMode
         
-        let transition = SKTransition.fade(with: .clear, duration: 1.0)
+        let transition = SKTransition.fade(with: .clear, duration: 2.0)
         self.scene?.view?.presentScene(sceneMoveTo ,transition: transition)
     }
 }

@@ -156,8 +156,6 @@ public class TutorialScene: SKScene{
     }
         
     func blackout(){
-        print("Blackout")
-        
         let sceneMoveTo = GameScene(size: self.size)
         sceneMoveTo.scaleMode = self.scaleMode
         
