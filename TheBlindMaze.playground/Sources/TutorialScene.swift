@@ -1,6 +1,5 @@
 import Foundation
 import SpriteKit
-import UIKit
 
 public class TutorialScene: SKScene{
     
