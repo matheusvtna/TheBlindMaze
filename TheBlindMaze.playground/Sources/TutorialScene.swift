@@ -48,19 +48,20 @@ public class TutorialScene: SKScene{
         let touch = touches.first
         let touchLocation = touch!.location(in: self)
         
-        if self.buttonOk.contains(touchLocation) {
+        
+        if self.blackoutButton.contains(touchLocation){
+            self.blackout()
+        }
+        else if self.buttonOk.contains(touchLocation) {
             self.char.removeFromParent()
             self.tutorialLabel.removeFromParent()
             self.menuBackground.removeFromParent()
             self.buttonOk.removeFromParent()
             self.buttonOkLabel.removeFromParent()
             
-            self.createBlackoutButton()
             self.createTimeLabel()
+            self.createBlackoutButton()
             self.setTimer()
-        }
-        else if self.blackoutButton.contains(touchLocation){
-            self.blackout()
         }
     }
     

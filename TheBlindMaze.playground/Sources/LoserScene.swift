@@ -12,7 +12,7 @@ public class LoserScene: SKScene{
     
     var charToFalling: [SKTexture] = []
     
-    var count = 4
+    var count = 3
 
     override public func didMove(to view: SKView) {
         super.didMove(to: view)
