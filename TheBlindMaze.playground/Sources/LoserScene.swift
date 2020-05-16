@@ -4,7 +4,7 @@ import SpriteKit
 public class LoserScene: SKScene{
     
     let map = SKSpriteNode(imageNamed: "Waterfall.png")
-    let char = SKSpriteNode(imageNamed: "CharFall1.png")
+    let char = SKSpriteNode(imageNamed: "CharFalling1.png")
     
     let loserLabel = SKLabelNode()
     let menuButton = SKShapeNode()
@@ -32,22 +32,10 @@ public class LoserScene: SKScene{
     }
     
     func animateChar(){
-        let prefix = "CharFall"
-        let ids = [1,2,1,3,1,2,1,3,1,2,1,3,1,2,1,3,1,2,1,3,1,2,1,3,1,2,1,3]
-        var animation: [SKTexture] = []
-        
         let falling = SKAction.moveBy(x: 0, y: -700, duration: 7.0)
-        
-        for i in ids {
-            let pose = SKTexture(imageNamed: "\(prefix)\(i)")
-            animation.append(pose)
-        }
-        
-        self.charToFalling = animation
         
         self.char.scale(to: CGSize(width: 90, height: 90))
         
-        self.char.run(SKAction.animate(with: self.charToFalling, timePerFrame: 0.125, resize: false, restore: true))
         self.char.run(falling)
         
     }

@@ -14,7 +14,7 @@ public class GameScene: SKScene{
     var charToLeft: [SKTexture] = []
     var charToDown: [SKTexture] = []
     var charToUp: [SKTexture] = []
-        
+    
     var matrix:Matrix = Matrix()
     var line = 0
     var column = 0
@@ -98,12 +98,12 @@ public class GameScene: SKScene{
         leftButton.position = CGPoint(x: 105, y:53)
         downButton.position = CGPoint(x: 131, y:27)
         upButton.position = CGPoint(x:131, y: 80)
-                
+        
         rightButton.setScale(0.25)
         leftButton.setScale(0.25)
         downButton.setScale(0.25)
         upButton.setScale(0.25)
-
+        
         self.addChild(rightButton)
         self.addChild(leftButton)
         self.addChild(downButton)
@@ -267,7 +267,7 @@ public class GameScene: SKScene{
             self.char.run(SKAction.animate(with: self.charToUp, timePerFrame: 0.125, resize: false, restore: true))
             self.char.run(toUp)
             self.char.texture = SKTexture(imageNamed: "CharUp1.png")
-    
+            
         }
     }
     
@@ -275,7 +275,7 @@ public class GameScene: SKScene{
         let wait = SKAction.wait(forDuration: 1)
         let block = SKAction.run({
             [unowned self] in
-
+            
             if self.count > 0{
                 self.count -= 1
             }else{
@@ -285,12 +285,12 @@ public class GameScene: SKScene{
         })
         
         let sequence = SKAction.sequence([wait,block])
-
+        
         run(SKAction.repeatForever(sequence), withKey: "countdown")
     }
     
     func createTimeLabel(){
-                
+        
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         paragraphStyle.lineBreakMode = .byWordWrapping
@@ -319,10 +319,13 @@ public class GameScene: SKScene{
     
     func win(){
         
-        let sceneMoveTo = WinnerScene(size: self.size)
-        sceneMoveTo.scaleMode = self.scaleMode
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            let sceneMoveTo = WinnerScene(size: self.size)
+            sceneMoveTo.scaleMode = self.scaleMode
+            
+            let transition = SKTransition.fade(with: .clear, duration: 1.0)
+            self.scene?.view?.presentScene(sceneMoveTo ,transition: transition)
+        }
         
-        let transition = SKTransition.fade(with: .clear, duration: 2.0)
-        self.scene?.view?.presentScene(sceneMoveTo ,transition: transition)
     }
 }
