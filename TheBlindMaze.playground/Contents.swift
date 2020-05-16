@@ -1,4 +1,3 @@
-//: A UIKit based Playground for presenting user interface
 import SpriteKit
 import PlaygroundSupport
 
@@ -8,7 +7,7 @@ import PlaygroundSupport
  
 Fulaninho is a resident of the city of Cuxixinga, in the interior of Pernambuco-BR, and like several cities near Cuxixinga and another 355 thousand households in Brazil, he does not have electricity at home. However, despite the difficulties, Fulaninho is still responsible for feeding his family.
 The big problem with all this is that Fulaninho has a bad memory and always forgets the fruits of the fields on the way home from work. In this way, Fulaninho asks for your help to guide him in the darkness of the rural area to get the fruits before his children die of hunger.
-Fast! You have little time until nighttfall to find out which path this is ...
+Fast! You have little time until nighttfall to find out which path this is...
  
  */
 
@@ -25,7 +24,7 @@ PlaygroundPage.current.liveView = view
 
 /*:
  
- # HO I AM?
+ # WHO I AM?
  
  Hi! My name is Matheus Andrade and I am 20 years old. I am from Brazil, from the Academy of Recife-PE.
 
@@ -37,3 +36,10 @@ PlaygroundPage.current.liveView = view
 
  */
 
+/*:
+ 
+ ### Credits
+ 
+ The background map of the game was created from clippings of open source licensed images. All the cutouts I used are in the folder "third-party" on this repository.
+ 
+ */
