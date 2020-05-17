@@ -34,7 +34,7 @@ PlaygroundPage.current.liveView = view
 
  
  I am a computer engineering student at the Centro de Informática - Universidade Federal de Pernambuco (CIn - UFPE) and I am a member of Apple Developer Academy.
- Now, I have contact with robotic, software developement, design and iOS Development at the university. But before that I never had knowledge about programming or something more technical about techonology. Being more specific, before I joined at the Academy, I never had contact with Swift or Apple's technology. Because of this, The Blind Maze is only my second playground made since I joined the the Apple Developer Academy in 2020 and is the first using SpriteKit. My idea of using SpriteKit on this playground came from my love about games and a motivation to learn something new at the beginning of the Academy that I will carry to all program and probably to all my career. So, I CREATE MY FIRST GAME!
+ Now, I have contact with robotic, software developement, design and iOS Development at the university. But before that I never had knowledge about programming or something more technical about techonology. And, being more specific, before I joined at the Academy, I never had contact with Swift or Apple's technology. Because of this, The Blind Maze is only my second playground made since I joined the the Apple Developer Academy in 2020 and is the first using SpriteKit. My idea of using SpriteKit on this playground came from my love about games and a motivation to learn something new at the beginning of the Academy that I will carry to all program and to all my career. So, I CREATED MY FIRST GAME AND I LOVED IT!
 
  */
 
@@ -42,6 +42,5 @@ PlaygroundPage.current.liveView = view
  
  ### Credits
  
-The game's background map was created from clippings of licensed open source images. All the clippings I used are in the "third party" folder in this repository and I am very grateful to [Pipoya](https://pipoya.itch.io/pipoya-rpg-tileset-32x32) for making them available.
-
+The game's background map was created from clippings of licensed open source images. The images that gave rise to these clippings are from [Pipoya](https://pipoya.itch.io/pipoya-rpg-tileset-32x32) and I am very grateful to him for making them available.
  */
