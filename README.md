@@ -1,4 +1,4 @@
-# The Blind Maze - WWDC Scholarship Application [Accepted](https://github.com/wwdc/2020) 
+# The Blind Maze - WWDC Scholarship Application [[Accepted]](https://github.com/wwdc/2020) 
 
 This playground was created for [WWDC 2020 Scholarship Application](https://developer.apple.com/wwdc20/swift-student-challenge/).
 
